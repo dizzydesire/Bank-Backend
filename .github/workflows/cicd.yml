@@ -22,7 +22,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
       with:
-        repository: digitalwitchdemo/main_bank_app_backend
+        repository: dizzydesire/Bank-Backend.git
         ref: main
 
 

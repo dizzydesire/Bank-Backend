@@ -64,8 +64,8 @@ jobs:
       run: |
         git clone https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/dizzydesire/Kubernetes-manifest.git
         cd kubernetes-manifest
-        git config --global user.email "chukwunonsosmartagbawo@gmail.com"
-        git config --global user.name "smartcloud2023"
+        git config --global user.email "desireoduma@outlook.com"
+        git config --global user.name "dizzytech"
 
         # Update image tag in manifest
         sed -i "s|${{ env.ECR_REGISTRY }}/${{ env.ECR_REPO }}:.*|${{ env.ECR_REGISTRY }}/${{ env.ECR_REPO }}:${{ github.run_number }}|g" ./bank-project/backendapi.yaml

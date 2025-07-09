@@ -133,19 +133,19 @@ jobs:
     needs: Continues-Integration_build_and_push
 
     steps:
-    - name: Clone Kubernetes manifest repo
-      env:
-        GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
-        GIT_PASSWORD: ${{ secrets.GIT_PASSWORD }}
-      run: |
-        git clone https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/dizzydesire/Kubernetes-manifest.git
-        cd kubernetes-manifest
-        git config --global user.email "desireoduma@outlook.com"
-        git config --global user.name "dizzytech"
-
-        # Update image tag in manifest
-        sed -i "s|${{ env.ECR_REGISTRY }}/${{ env.ECR_REPO }}:.*|${{ env.ECR_REGISTRY }}/${{ env.ECR_REPO }}:${{ github.run_number }}|g" ./bank-project/backendapi.yaml
-
-        git add ./bank-project/backendapi.yaml
-        git commit -m "Update backendapi image to version ${{ github.run_number }}"
-        git push origin main
+    - - name: Clone Kubernetes manifest repo
+    env:
+      GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
+      GIT_PASSWORD: ${{ secrets.GIT_PASSWORD }}
+    run: |
+      git clone https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/dizzydesire/Kubernetes-manifest.git manifest
+      cd manifest
+      git config --global user.email "desireoduma@outlook.com"
+      git config --global user.name "dizzytech"
+  
+      sed -i "s|image: .*$|image: ${{ vars.ECR_REPO }}:${{ github.run_number }}|g" ./bank-project/frontend.yaml
+  
+      git add ./bank-project/frontend.yaml
+      git commit -m "Update frontend image to version ${{ github.run_number }}"
+      git push origin main
+  
